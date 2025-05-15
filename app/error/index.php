@@ -1,6 +1,6 @@
 <?php
 
-class Errors {
+class errors {
     
     public static function index($error = null ){
         

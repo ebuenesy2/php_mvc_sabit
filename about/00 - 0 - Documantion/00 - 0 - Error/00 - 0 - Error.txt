@@ -1,13 +1,13 @@
 
 Kod Çağırma
 ---------------
-require 'app/Errors/index.php'; //! Error
+require 'app/errors/index.php'; //! Error
 
 *********************************************
 
 Hata Varsa
 ---------------
-Errors::index("Hata"); 
+errors::index("Hata"); 
 
 Çıktı
 ---------------
@@ -17,7 +17,7 @@ Errors::index("Hata");
 
 Hata Yoksa
 ---------------
-Errors::index(null); 
+errors::index(null); 
 
 Çıktı
 ---------------
@@ -27,5 +27,5 @@ Errors::index(null);
 
 Sayfa Bulunamadı
 ---------------
-Errors::notFound();
+errors::notFound();
 

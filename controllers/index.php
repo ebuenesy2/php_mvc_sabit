@@ -4,7 +4,15 @@ class Controller {
     
     
     public static function home($req = null){
-        echo "Controller Home";
+        echo "Controller Home"; echo "<br>";
+
+        $base_url = Config::get('app', 'base_url');
+        echo "base_url:"; echo $base_url; 
+
+        echo "<br>";
+
+        $host = Config::get('db', 'host');
+        echo "host:"; echo $host; 
     }
 
     public static function home_Post($req = null){

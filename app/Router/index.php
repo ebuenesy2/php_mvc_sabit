@@ -80,7 +80,7 @@ class Route {
     public static function run() 
     {
         require 'router.php'; //! Router
-        require 'app/Errors/index.php'; //! Error
+        require 'app/error/index.php'; //! Error
         require 'controllers/index.php'; //! controllers
         
         $request_uri = self::parse_url(); //! Url
@@ -129,7 +129,7 @@ class Route {
             Controller::$controller($postAll); //! Controller
 
         }
-        else { Errors::notFound(); }
+        else { errors::notFound(); }
         
      
        
