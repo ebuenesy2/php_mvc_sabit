@@ -1,0 +1,31 @@
+
+Kod Çağırma
+---------------
+require 'app/Errors/index.php'; //! Error
+
+*********************************************
+
+Hata Varsa
+---------------
+Errors::index("Hata"); 
+
+Çıktı
+---------------
+{"error":"Hata","status":0}
+
+*********************************************
+
+Hata Yoksa
+---------------
+Errors::index(null); 
+
+Çıktı
+---------------
+{"error":null,"status":1}
+
+*********************************************
+
+Sayfa Bulunamadı
+---------------
+Errors::notFound();
+

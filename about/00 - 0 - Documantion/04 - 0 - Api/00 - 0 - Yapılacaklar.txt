@@ -1,0 +1,6 @@
+
+Api Okuma - Get
+Api Okuma - Post
+
+Api Oluşturma - Get
+Api Oluşturma - Post

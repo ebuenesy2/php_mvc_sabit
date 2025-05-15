@@ -1,0 +1,46 @@
+
+Açıklama
+-------------
+Veri
+Veri Array Okuma
+
+************************************************************************
+
+Url
+---------
+http://localhost/dashboard/local_yildirimdev/Router/
+http://localhost/dashboard/local_yildirimdev/Router/test
+
+************************************************************************
+
+Sayfalandırma [ router.php ]
+------------------------------------------
+
+<?php
+
+    $routes =  [
+        array(
+            "path" => '/',
+            'method' =>'GET',
+            'controller' =>'home',
+        )
+    ];
+
+?>
+
+************************************************************************
+
+Controller [ controllers -> index.php ]
+------------------------------------------
+
+public static function home($req = null){
+   echo "Controller Home";
+}
+
+
+************************************************************************
+
+view [ xx -> index.php ]
+------------------------------------------
+
+

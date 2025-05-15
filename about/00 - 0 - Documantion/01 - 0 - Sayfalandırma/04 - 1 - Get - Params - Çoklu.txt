@@ -1,0 +1,40 @@
+
+Açıklama
+-------------
+Get - Params
+
+************************************************************************
+
+Url
+---------
+http://localhost/dashboard/local_yildirimdev/Router/params/all?name=enes&surname=yıldırım
+
+************************************************************************
+
+Sayfalandırma [ router.php ]
+------------------------------------------
+
+<?php
+
+    $routes =  [
+        array(
+            "path" => '/params/all',
+            'method' =>'GET',
+            'controller' => 'test_Get_params_all',
+        )
+    ];
+
+?>
+
+************************************************************************
+
+Controller [ controllers -> index.php ]
+------------------------------------------
+
+    public static function test_Get_params_all($req = null){
+        echo "Controller test_Get_params_all";
+        
+        //! Params Okuma
+        echo "<pre>"; print_r($_GET); die(); //! Tüm Params
+        //! echo "name:"; echo $_GET["name"]; die(); //! Tek Params Okuma
+    }

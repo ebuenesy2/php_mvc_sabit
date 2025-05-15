@@ -1,0 +1,46 @@
+
+Açıklama
+-------------
+Post
+
+***************************************************************************
+
+Url
+---------
+http://localhost/dashboard/local_yildirimdev/Router/authorization
+
+************************************************************************
+
+Sayfalandırma [ router.php ]
+------------------------------------------
+
+<?php
+
+    $routes =  [
+        array(
+            "path" => '/authorization',
+            'method' =>'POST',
+            'controller' => 'auth_Post',
+        )
+    ];
+
+?>
+
+*************************************************************************
+
+Controller [ controllers -> index.php ]
+------------------------------------------
+
+
+    public static function auth_Post($req = null){
+        //! echo "Controller auth_Post"; echo " ";
+
+        //echo "<pre>";
+        $headers = getallheaders(); //! Header
+        $headers_Authorization = $headers["Authorization"]; //! Bearer abcToken
+        $Authorization = explode("Bearer ",$headers_Authorization)[1]; //! abcToken
+        
+        if($Authorization == "abcToken") { echo "token var"; }
+        else { echo "token yok"; }
+
+    }
