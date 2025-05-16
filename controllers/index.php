@@ -37,6 +37,14 @@ class Controller {
 
     public static function test_Get_Url($req = null){
         echo "Controller test_Get_Url";
+
+       
+    }
+
+    public static function test_Get_Url_Name($req = null){
+        echo "Controller test_Get_Url_Name";
+
+        echo "id:"; echo $id;
     }
 
     public static function auth_Post_authorization($req = null){
