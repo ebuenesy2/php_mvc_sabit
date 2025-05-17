@@ -8,7 +8,7 @@
             'controller' =>'home',            
         ),
         array(
-            "path" => '/',
+            "path" => '/post',
             'method' =>'POST',
             'controller' =>'home_Post',            
         ),

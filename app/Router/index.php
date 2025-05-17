@@ -19,7 +19,12 @@ class Route {
         $method = $_SERVER['REQUEST_METHOD']; //! GET - POST
         $id = null;
         $status = 0;
-        $postAll = json_decode(file_get_contents('php://input'), true); //! Tüm Post Veriler
+
+        // POST verisi oku (JSON varsa onu al, yoksa $_POST kullan)
+        $postRaw = file_get_contents('php://input'); //! Gelen Veriler
+        $postJson = json_decode($postRaw, true); //! Json Veriler
+        $postAll = $postJson ?? $_POST;
+
         $get_url = array(); //! Url Parametre Alma
 
         //! echo "method:"; echo $method; die();
@@ -75,13 +80,16 @@ class Route {
        
         return json_encode($return);
         
-    } //! Url Arama Spm
+    } //! Url Arama Son
 
     public static function run() 
     {
         require 'router.php'; //! Router
         require 'app/error/index.php'; //! Error
         require 'controllers/index.php'; //! controllers
+
+
+
         
         $request_uri = self::parse_url(); //! Url
         $searchForUrl = self::searchForUrl($routes,$request_uri); //! Url Arama

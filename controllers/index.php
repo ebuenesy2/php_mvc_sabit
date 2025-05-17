@@ -19,8 +19,8 @@ class Controller {
         echo "Controller Home Post"; echo "<br>";
 
         //! Post Okuma
-        //! echo "<pre>"; print_r($req); die(); //! Tüm Veriler
-        //! echo "name:"; echo $req->name; die(); //! Tek Veri Okuma
+        echo "<pre>"; print_r($req); // Tüm POST verileri
+        echo "name: " . $req->name;  // Tekil veri
 
         // //! Json
         // $postJson = $req->name;
