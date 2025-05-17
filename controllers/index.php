@@ -74,13 +74,13 @@ class Controller {
     }
 
     public static function auth_Get_authorization($req = null){
-        echo "Controller auth_Get_authorization"; echo "<br>";
+        echo "Controller auth_Get_authorization"; echo "<br>"; 
 
         $headers = getallheaders(); //! Header
+        //echo "<pre>"; print_r($headers); die();
+
         $headers_Authorization = $headers["Authorization"]; //! Bearer abcToken
         $Authorization = explode("Bearer ",$headers_Authorization)[1]; //! abcToken
-
-        echo "<pre>"; print_r($headers); die();
         
         if($Authorization == "abcToken") { echo "token var"; }
         else { echo "token yok"; }

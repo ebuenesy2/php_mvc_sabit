@@ -42,6 +42,11 @@
             'method' =>'GET',
             'controller' => 'auth_Get_headers',
         ),
+        array(
+            "path" => '/authorization',
+            'method' =>'GET',
+            'controller' => 'auth_Get_authorization',
+        ),
        
        
     ];
