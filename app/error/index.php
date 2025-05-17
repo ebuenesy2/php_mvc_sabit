@@ -15,7 +15,7 @@ class errors {
     }
 
     public static function notFound(){ echo "Sayfa Bulunamadı"; }
-
+    
 }
 
 ?>
