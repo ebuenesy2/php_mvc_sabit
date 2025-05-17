@@ -16,7 +16,7 @@ class Controller {
     }
 
     public static function home_Post($req = null){
-        //! echo "Controller test_Post"; echo " ";
+        //!  echo "Controller Home Post"; echo "<br>";
 
         //! Post Okuma
         //! echo "<pre>"; print_r($req); die(); //! Tüm Veriler
@@ -32,23 +32,49 @@ class Controller {
     }
 
     public static function test_Get($req = null){
-        echo "Controller test_Get";
+        echo "Controller test_Get"; echo "<br>";
     }
 
     public static function test_Get_Url($req = null){
-        echo "Controller test_Get_Url";
+        echo "Controller test_Get_Url"; echo "<br>";
 
-       
+        
+        //! Tüm veriler
+        //echo "<pre>"; print_r($req); die();
+        echo "id: "; echo $req->id; //! Tek Veri Okuma
+
     }
 
     public static function test_Get_Url_Name($req = null){
-        echo "Controller test_Get_Url_Name";
+        echo "Controller test_Get_Url_Name"; echo "<br>";
 
-        echo "id:"; echo $id;
+        //echo "<pre>"; print_r($req); die();
+        //echo "id: "; echo $req->id; //! Tek Veri Okuma
+        echo "name: "; echo $req->name; //! Tek Veri Okuma
+       
     }
 
-    public static function auth_Post_authorization($req = null){
-        //! echo "Controller auth_Post_authorization"; echo " ";
+    public static function test_Get_params($req = null) {
+        //! echo "Controller test_Get_params"; echo "<br>";
+        
+        //! Params Okuma
+        echo "<pre>"; print_r($_GET); die(); //! Tüm Params
+        echo "name:"; echo $_GET["name"]; die(); //! Tek Params Okuma
+    }
+
+    public static function auth_Get_headers($req = null){
+        echo "Controller auth_Get_headers"; echo "<br>";
+
+        $headers = getallheaders(); //! Header
+        //echo "<pre>"; print_r($headers); die();
+
+        $headers_Data_Get = $headers["yildirimdev_name"];
+        echo "<pre>"; print_r($headers_Data_Get); die();
+
+    }
+
+    public static function auth_Get_authorization($req = null){
+        echo "Controller auth_Get_authorization"; echo "<br>";
 
         $headers = getallheaders(); //! Header
         $headers_Authorization = $headers["Authorization"]; //! Bearer abcToken
@@ -61,13 +87,7 @@ class Controller {
 
     }
 
-    public static function test_Get_params($req = null) {
-        //! echo "Controller test_Get_params";
-        
-        //! Params Okuma
-        //! echo "<pre>"; print_r($_GET); die(); //! Tüm Params
-        echo "name:"; echo $_GET["name"]; die(); //! Tek Params Okuma
-    }
+   
     
 
 }

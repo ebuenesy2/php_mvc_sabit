@@ -2,7 +2,7 @@
 
 class Route {
 
-    //! Url Alma
+    //! Url Parçalama
     public static function parse_url()
     {
         $dirname = dirname($_SERVER['SCRIPT_NAME']); //! Proje Dosya Adresi [ örnek : /dashboard/local_yildirimdev/Router ]
@@ -11,7 +11,7 @@ class Route {
         $REDIRECT_URL = $_SERVER['REDIRECT_URL']; //! Yonlendirme Url [ örnek : /dashboard/local_yildirimdev/Router/params ]
         $request_uri = str_replace($dirname,null,$REDIRECT_URL); //! Url [ örnek : /params ]
         return $request_uri;
-    } //! Url Alma Son
+    } //! Url Parçalama Son
 
     //! Url Arama
     public static function searchForUrl($array,$search) {
@@ -110,26 +110,30 @@ class Route {
             //print_r($postAll); die();
             //echo "name:"; echo $postAll->name; die();
            
-            // echo "method:"; echo $method; echo " ";
-            // echo "controller:"; echo $controller;
+            //echo "method:"; echo $method; echo "<br>";
+            //echo "controller:"; echo $controller;
 
-            // //! Return
-            // $return = array(
-            //     'id' => $status == 1 ? $id : null,
-            //     'url' => $request_uri,
-            //     'method' => $method,                
-            //     'controller' => $controller,                
-            //     //'searchForUrl_Json' => $searchForUrl_Json,                
-            //     'postAll' => $method == "POST" ? $postAll : [],
-            //     'getUrl' => $status == 1 ? $getUrl : [],
-            // );
+            //! Return
+            $return = array(
+                'id' => $status == 1 ? $id : null,
+                'url' => $request_uri,
+                'method' => $method,                
+                'controller' => $controller,                
+                //'searchForUrl_Json' => $searchForUrl_Json,                
+                'postAll' => $method == "POST" ? $postAll : [],
+                'getUrl' => $status == 1 ? $getUrl : [],
+            );
             
-            // print_r($return);
+            //print_r($return);
 
-            Controller::$controller($postAll); //! Controller
+            //! Controller Yönlendirme
+            if($method == "GET") {  Controller::$controller($getUrl);  }
+            if($method == "POST") {  Controller::$controller($postAll);  }
+
+            
 
         }
-        else { errors::notFound(); }
+        else { errors::notFound(); } //! Sayfa bulunamdı. 404
         
      
        
