@@ -16,7 +16,7 @@ class Controller {
     }
 
     public static function home_Post($req = null){
-        //!  echo "Controller Home Post"; echo "<br>";
+        echo "Controller Home Post"; echo "<br>";
 
         //! Post Okuma
         //! echo "<pre>"; print_r($req); die(); //! Tüm Veriler

@@ -18,11 +18,6 @@
             'controller' =>'test_Get',            
         ),
         array(
-            "path" => '/test',
-            'method' =>'POST',
-            'controller' => 'test_Post_Test',
-        ),
-        array(
             "path" => '/test/:id',
             'method' =>'GET',
             'controller' =>'test_Get_Url',            
