@@ -16,9 +16,11 @@ class Route {
     //! Url Arama
     public static function searchForUrl($array,$search) {
 
-        $method = $_SERVER['REQUEST_METHOD']; //! GET - POST
         $id = null;
         $status = 0;
+        $method = $_SERVER['REQUEST_METHOD']; //! GET - POST
+        //echo "method:"; echo $method; die();
+        
 
         // POST verisi oku (JSON varsa onu al, yoksa $_POST kullan)
         $postRaw = file_get_contents('php://input'); //! Gelen Veriler
@@ -26,11 +28,10 @@ class Route {
         $postAll = $postJson ?? $_POST;
 
         $get_url = array(); //! Url Parametre Alma
-
-        //! echo "method:"; echo $method; die();
+        //echo "<pre>"; print_r($get_url); die();
 
         //! Url Arama
-        foreach ($array as $key => $val) { 
+        foreach ($array as $key => $val) {  
             
             if ($val['path'] == $search && $val['method'] == $method) {  $id = $key; $status= 1; break;   }
             else {
@@ -66,6 +67,7 @@ class Route {
             }
             
         }  //! Url Arama Son
+    
 
         //! Return
         cancelReturn: //! 
@@ -87,17 +89,16 @@ class Route {
         require 'router.php'; //! Router
         require 'app/error/index.php'; //! Error
         require 'controllers/index.php'; //! controllers
-
-
-
         
         $request_uri = self::parse_url(); //! Url
+        //echo "request_uri:"; echo $request_uri; die();
+
         $searchForUrl = self::searchForUrl($routes,$request_uri); //! Url Arama
         $searchForUrl_Json = json_decode($searchForUrl); //! Json
         $status = $searchForUrl_Json->status; //! Status
-        //! echo "request_uri:"; echo $request_uri; die();
+        //echo "<pre>"; print_r($searchForUrl_Json); die();
         //echo "status:"; echo $status; die();
-        //! echo "<pre>"; print_r($searchForUrl_Json); die();
+         
 
         if($status == 1) { 
 
@@ -106,7 +107,8 @@ class Route {
             //print_r($routes);
             //print_r($routes[$searchForUrl_Json->index]); //! Array Okuma
             //echo $routes[$findindex]["controller"]; //! test
-            
+            //die();
+
            
             $id = $searchForUrl_Json->id;
             $method = $routes[$id]["method"]; //! Method Type
@@ -114,7 +116,7 @@ class Route {
             $postAll = $searchForUrl_Json->postAll ? $searchForUrl_Json->postAll : [] ; //! Post 
             $getUrl = $searchForUrl_Json->getUrl; //! Get Url Paramatre 
            
-            echo "<pre>";
+            //echo "<pre>";
             //print_r($searchForUrl_Json); die();
             //print_r($postAll); die();
             //echo "name:"; echo $postAll->name; die();
@@ -133,7 +135,7 @@ class Route {
                 'getUrl' => $status == 1 ? $getUrl : [],
             );
             
-            print_r($return); die();
+            //print_r($return); die();
 
             //! Controller Yönlendirme
             if($method == "GET") {  Controller::$controller($getUrl);  }
