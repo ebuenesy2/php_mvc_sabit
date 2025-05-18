@@ -38,9 +38,15 @@
             'controller' => 'auth_Get_headers',
         ),
         array(
-            "path" => '/authorization',
+            "path" => '/bearer_token',
             'method' =>'GET',
-            'controller' => 'auth_Get_authorization',
+            'controller' => 'auth_Get_headers_Authorization_BearerToken',
+        ),
+        
+        array(
+            "path" => '/bearer_token',
+            'method' =>'POST',
+            'controller' => 'auth_POST_headers_Authorization_BearerToken',
         ),
        
        

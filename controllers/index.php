@@ -24,7 +24,6 @@ class Controller {
 
         // //! Json
         // $postJson = $req->name;
-        // $postJson = $req->name;
         // echo "<pre>"; print_r($postJson); die(); //! Tüm Json Veriler
         // //! echo "<pre>"; print_r($postJson[0]); die(); //! Json Veri
         // //! echo "id:"; print_r($postJson[0]->id); die(); //! Tek Veri
@@ -63,18 +62,18 @@ class Controller {
     }
 
     public static function auth_Get_headers($req = null){
-        echo "Controller auth_Get_headers"; echo "<br>";
+        echo "Controller auth_Get_headers"; echo "<br>"; 
 
         $headers = getallheaders(); //! Header
         //echo "<pre>"; print_r($headers); die();
 
-        $headers_Data_Get = $headers["yildirimdev_name"];
-        echo "<pre>"; print_r($headers_Data_Get); die();
+        $headers_Data_yildirimdev_api_user_name = $headers["yildirimdev_api_user_name"];
+        echo "headers_Data_yildirimdev_api_user_name: "; echo $headers_Data_yildirimdev_api_user_name; die();
 
     }
 
-    public static function auth_Get_authorization($req = null){
-        echo "Controller auth_Get_authorization"; echo "<br>"; 
+    public static function auth_Get_headers_Authorization_BearerToken($req = null){
+        echo "Controller auth_Get_headers_Authorization_BearerToken"; echo "<br>";  
 
         $headers = getallheaders(); //! Header
         //echo "<pre>"; print_r($headers); die();
@@ -87,7 +86,32 @@ class Controller {
 
     }
 
-   
+    public static function auth_POST_headers_Authorization_BearerToken($req = null){
+        echo "Controller auth_POST_headers_Authorization_BearerToken"; echo "<br>";  
+
+        //! Post Okuma
+        echo "<pre>"; print_r($req); // Tüm POST verileri
+        //echo "name: " . $req->name;  // Tekil veri
+
+        echo "<br>";  
+
+        //! Json
+        // $postJson = $req->name;
+        // echo "<pre>"; print_r($postJson); die(); //! Tüm Json Veriler
+        // //! echo "<pre>"; print_r($postJson[0]); die(); //! Json Veri
+        // //! echo "id:"; print_r($postJson[0]->id); die(); //! Tek Veri
+        //! Post Okuma -- Son
+
+        $headers = getallheaders(); //! Header
+        //echo "<pre>"; print_r($headers); die();
+
+        $headers_Authorization = $headers["Authorization"]; //! Bearer abcToken
+        $Authorization = explode("Bearer ",$headers_Authorization)[1]; //! abcToken
+        
+        if($Authorization == "abcToken") { echo "token var"; }
+        else { echo "token yok"; }
+
+    }
     
 
 }
