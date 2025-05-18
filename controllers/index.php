@@ -12,7 +12,7 @@ class Controller {
         echo "<br>";
 
         $host = Config::get('db', 'host');
-        echo "host:"; echo $host; 
+        echo "host:"; echo $host;
     }
 
     public static function home_Post($req = null){
@@ -61,8 +61,8 @@ class Controller {
         echo "name:"; echo $_GET["name"]; die(); //! Tek Params Okuma
     }
 
-    public static function auth_Get_headers($req = null){
-        echo "Controller auth_Get_headers"; echo "<br>"; 
+    public static function Get_headers($req = null){
+        echo "Controller Get_headers"; echo "<br>"; 
 
         $headers = getallheaders(); //! Header
         //echo "<pre>"; print_r($headers); die();
@@ -71,9 +71,9 @@ class Controller {
         echo "headers_Data_yildirimdev_api_user_name: "; echo $headers_Data_yildirimdev_api_user_name; die();
 
     }
-
-    public static function auth_Get_headers_Authorization_BearerToken($req = null){
-        echo "Controller auth_Get_headers_Authorization_BearerToken"; echo "<br>";  
+    
+    public static function Get_headers_Authorization_BearerToken($req = null){
+        echo "Controller Get_headers_Authorization_BearerToken"; echo "<br>";  
 
         $headers = getallheaders(); //! Header
         //echo "<pre>"; print_r($headers); die();
@@ -86,8 +86,8 @@ class Controller {
 
     }
 
-    public static function auth_POST_headers_Authorization_BearerToken($req = null){
-        echo "Controller auth_POST_headers_Authorization_BearerToken"; echo "<br>";  
+    public static function POST_headers_Authorization_BearerToken($req = null){
+        echo "Controller POST_headers_Authorization_BearerToken"; echo "<br>";  
 
         //! Post Okuma
         echo "<pre>"; print_r($req); // Tüm POST verileri
@@ -113,6 +113,28 @@ class Controller {
 
     }
     
+
+    //! Proje Bilgileri    
+    public static function Get_Info($req = null)
+    {
+        echo "Proje Bilgileri<br><br>";
+
+        $appTitle      = Config::get('app', 'app_title');
+        $version       = Config::get('app', 'app_version');
+        $author        = Config::get('app', 'author');
+        $createdAt     = Config::get('app', 'created_at');
+        $lastUpdated   = Config::get('app', 'last_updated');
+        $baseUrl       = Config::get('app', 'base_url');
+        $debug         = Config::get('app', 'debug') ? 'Açık' : 'Kapalı';
+
+        echo "Uygulama Adı: <strong>$appTitle</strong><br>";
+        echo "Versiyon: <strong>$version</strong><br>";
+        echo "Geliştirici: <strong>$author</strong><br>";
+        echo "Yayın Tarihi: <strong>$createdAt</strong><br>";
+        echo "Son Güncelleme: <strong>$lastUpdated</strong><br>";
+        echo "Base URL: <strong>$baseUrl</strong><br>";
+        echo "Debug Modu: <strong>$debug</strong><br>";
+    }
 
 }
 

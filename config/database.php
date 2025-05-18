@@ -1,4 +1,6 @@
 <?php
+
+// Veritabanı Ayarları
 return [
     'host' => 'localhost',
     'dbname' => 'mydb',

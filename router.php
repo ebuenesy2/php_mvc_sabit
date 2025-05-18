@@ -35,19 +35,25 @@
         array(
             "path" => '/headers',
             'method' =>'GET',
-            'controller' => 'auth_Get_headers',
+            'controller' => 'Get_headers',
         ),
         array(
             "path" => '/bearer_token',
             'method' =>'GET',
-            'controller' => 'auth_Get_headers_Authorization_BearerToken',
-        ),
-        
+            'controller' => 'Get_headers_Authorization_BearerToken',
+        ),        
         array(
             "path" => '/bearer_token',
             'method' =>'POST',
-            'controller' => 'auth_POST_headers_Authorization_BearerToken',
+            'controller' => 'POST_headers_Authorization_BearerToken',
         ),
+        
+        array(
+            "path" => '/info',
+            'method' =>'GET',
+            'controller' => 'Get_Info',
+        ), 
+        
        
        
     ];
