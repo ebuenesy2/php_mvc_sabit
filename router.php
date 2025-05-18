@@ -27,26 +27,23 @@
             'method' =>'GET',
             'controller' =>'test_Get_Url_Name',            
         ),
-        array(
-            "path" => '/test',
-            'method' =>'POST',
-            'controller' => 'test_Post_Test',
-        ),
-        array(
-            "path" => '/authorization',
-            'method' =>'POST',
-            'controller' => 'auth_Post_authorization',
-        ),
-        array(
+       array(
             "path" => '/params',
             'method' =>'GET',
             'controller' => 'test_Get_params',
         ),
         array(
-            "path" => '/params',
-            'method' =>'POST',
-            'controller' => 'test_Post_params',
+            "path" => '/headers',
+            'method' =>'GET',
+            'controller' => 'auth_Get_headers',
         ),
+        array(
+            "path" => '/authorization',
+            'method' =>'GET',
+            'controller' => 'auth_Get_authorization',
+        ),
+       
+       
     ];
 
 ?>
