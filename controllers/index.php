@@ -113,7 +113,7 @@ class Controller {
 
     }
     
-
+    
     //! Proje Bilgileri    
     public static function Get_Info($req = null)
     {
