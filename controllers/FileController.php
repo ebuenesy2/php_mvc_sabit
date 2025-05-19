@@ -2,15 +2,15 @@
 
 class FileController
 {
-    public function home($params = [])
+    public function home($req = [])
     {
         echo "Dosya Anasayfa GET<br>";
-        print_r($params);
+        print_r($req);
     }
 
-    public function home_Post($params = [])
+    public function home_Post($req = [])
     {
         echo "Anasayfa POST<br>";
-        print_r($params);
+        print_r($req);
     }
 }

@@ -72,6 +72,22 @@
             'controller' =>'FileController',  
             'controller_method' => 'home',
         ), 
+
+
+        //! Mysql Api İşlemleri
+        array(
+            "path" => '/api/test',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'home',
+        ), 
+
+        array(
+            "path" => '/api/test/all',
+            'method' =>'GET',
+            'controller' =>'TestController',  
+            'controller_method' => 'all',
+        ), 
         
        
        
