@@ -1,6 +1,6 @@
 <?php
 
-class AnasayfaController {
+class HomeController {
     
     
     public static function home($req = null){
