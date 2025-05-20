@@ -2,19 +2,31 @@
 
 class errors {
     
-    public static function index($error = null ){
+    public static function index($title = null,$message = null,$status = 0 ){
         
         //! Return
         $return = array(
-            'error' => $error,
-            'status' => $error == null ? 1 : 0,
+            'title' => $title,
+            'message' => $message,
+            'status' => $status,
         );
         
         echo json_encode($return);
 
     }
 
-    public static function notFound(){ echo "Sayfa Bulunamadı"; }
+    public static function notFound($title = null,$message = null,$status = 0){ 
+        
+        //! Return
+        $return = array(
+            'title' => $title == null ? 'Sayfa Bulunamadı' : $title,
+            'message' => $message,
+            'status' => $status,
+        );
+        
+        echo json_encode($return);
+
+    }
     
 }
 

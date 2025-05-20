@@ -1,6 +1,6 @@
 <?php
 
-class Controller {
+class HomeController {
     
     
     public static function home($req = null){
@@ -19,14 +19,17 @@ class Controller {
         echo "Controller Home Post"; echo "<br>";
 
         //! Post Okuma
-        echo "<pre>"; print_r($req); // Tüm POST verileri
-        echo "name: " . $req->name;  // Tekil veri
+        //echo "<pre>"; print_r($req); // Tüm POST verileri
+        //echo "name: " . $req['name'];  // Tekil veri
 
-        // //! Json
-        // $postJson = $req->name;
-        // echo "<pre>"; print_r($postJson); die(); //! Tüm Json Veriler
-        // //! echo "<pre>"; print_r($postJson[0]); die(); //! Json Veri
-        // //! echo "id:"; print_r($postJson[0]->id); die(); //! Tek Veri
+
+        //! Json
+        $postJson = json_encode($req); // JSON string
+        $data = json_decode($postJson); // Tekrar decode edip eriş sonra objesi oluşturuyor
+
+        //echo "<pre>"; print_r($data);         // tüm veri
+        //echo "name: "; echo $data->name ?? 'yok';           // eğer array içindeki object varsa
+        //echo $data[0]->id ?? 'yok';           // eğer array içindeki object varsa
 
     }
 
@@ -35,21 +38,20 @@ class Controller {
     }
 
     public static function test_Get_Url($req = null){
-        echo "Controller test_Get_Url"; echo "<br>";
+        echo "Controller test_Get_Url"; echo "<br>";echo "<br>";
 
         
         //! Tüm veriler
         //echo "<pre>"; print_r($req); die();
-        echo "id: "; echo $req->id; //! Tek Veri Okuma
+        echo "id: "; echo $req['id']; //! Tek Veri Okuma
 
     }
 
     public static function test_Get_Url_Name($req = null){
         echo "Controller test_Get_Url_Name"; echo "<br>";
 
-        //echo "<pre>"; print_r($req); die();
-        //echo "id: "; echo $req->id; //! Tek Veri Okuma
-        echo "name: "; echo $req->name; //! Tek Veri Okuma
+        echo "<pre>"; print_r($req); die();
+        //echo "id: "; echo $req['id']; //! Tek Veri Okuma
        
     }
 
@@ -113,7 +115,7 @@ class Controller {
 
     }
     
-
+    
     //! Proje Bilgileri    
     public static function Get_Info($req = null)
     {

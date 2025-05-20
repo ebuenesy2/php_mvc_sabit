@@ -1,155 +1,104 @@
 <?php
 
-class Route {
-
-    //! Url Parçalama
+class Route
+{
+    // URL Parçalama
     public static function parse_url()
     {
-        $dirname = dirname($_SERVER['SCRIPT_NAME']); //! Proje Dosya Adresi [ örnek : /dashboard/local_yildirimdev/Router ]
+        $dirname = dirname($_SERVER['SCRIPT_NAME']);
         $dirname = $dirname != '/' ? $dirname : null;
-        $basename = basename($_SERVER['SCRIPT_NAME']); //! index.php
-        $REDIRECT_URL = $_SERVER['REDIRECT_URL']; //! Yonlendirme Url [ örnek : /dashboard/local_yildirimdev/Router/params ]
-        $request_uri = str_replace($dirname,null,$REDIRECT_URL); //! Url [ örnek : /params ]
-        return $request_uri;
-    } //! Url Parçalama Son
+        $request_uri = str_replace($dirname, '', $_SERVER['REQUEST_URI']);
+        $request_uri = strtok($request_uri, '?'); // query string'i ayıkla
+        return rtrim($request_uri, '/') ?: '/';
+    }
 
-    //! Url Arama
-    public static function searchForUrl($array,$search) {
-
-        $id = null;
-        $status = 0;
-        $method = $_SERVER['REQUEST_METHOD']; //! GET - POST
-        //echo "method:"; echo $method; die();
-        
-
-        // POST verisi oku (JSON varsa onu al, yoksa $_POST kullan)
-        $postRaw = file_get_contents('php://input'); //! Gelen Veriler
-        $postJson = json_decode($postRaw, true); //! Json Veriler
+    // URL Arama ve eşleştirme
+    public static function searchForUrl($routes, $currentPath)
+    {
+        $method = $_SERVER['REQUEST_METHOD'];
+        $postRaw = file_get_contents('php://input');
+        $postJson = json_decode($postRaw, true);
         $postAll = $postJson ?? $_POST;
 
-        $get_url = array(); //! Url Parametre Alma
-        //echo "<pre>"; print_r($get_url); die();
+        $getUrl = [];
 
-        //! Url Arama
-        foreach ($array as $key => $val) {  
-            
-            if ($val['path'] == $search && $val['method'] == $method) {  $id = $key; $status= 1; break;   }
-            else {
+        foreach ($routes as $index => $route) {
+            if ($route['method'] !== $method) continue;
 
-                //! Tanım
-                $id = $key; 
-                $path = $val['path'];  //! Url
-                
+            // Parametreli route'ları eşleştirmek için
+            $pattern = preg_replace('/:\w+/', '([^\/]+)', $route['path']);
+            $pattern = "@^" . $pattern . "$@";
 
-                //! Tanım - Dizi
-                $array_path=explode("/",$path);  //! /user/:id
-                $array_search=explode("/",$search); //! /user/1
+            if (preg_match($pattern, $currentPath, $matches)) {
+                array_shift($matches);
 
-                if( $val['method'] == $method  ) {
-
-                    //! Get - Url
-                    if(count($array_path) == count($array_search)) {  
-                        foreach($array_path as $key_path => $val_path ) { 
-                            if($array_search[$key_path] == $array_path[$key_path]) {  } //! echo "var: "; echo $array_path[$key_path]; echo " "; 
-                            else { 
-                                $array_path_key=explode(":",$array_path[$key_path]);  
-                                if(count($array_path_key) >=2) { $lastData = end($array_path_key) ? end($array_path_key) : null; $get_url[$lastData] = $array_search[$key_path]; $status = 1; }
-                                else {  break;  } 
-                            }
-                        }
-                        
-                        if($status == 1) { break;  }
-
-                    } //! Get - Url Son
-                
+                // parametreleri al
+                preg_match_all('/:([\w]+)/', $route['path'], $paramKeys);
+                if (!empty($paramKeys[1])) {
+                    foreach ($paramKeys[1] as $i => $key) {
+                        $getUrl[$key] = $matches[$i] ?? null;
+                    }
                 }
 
+                return [
+                    'id' => $index,
+                    'url' => $currentPath,
+                    'method' => $method,
+                    'status' => 1,
+                    'postAll' => $method == 'POST' ? $postAll : [],
+                    'getUrl' => $getUrl
+                ];
             }
-            
-        }  //! Url Arama Son
-    
-
-        //! Return
-        cancelReturn: //! 
-        $return = array(
-           'id' => $status == 1 ? $id : null,
-           'url' => $search,
-           'method' => $method,
-           'status' => $status,
-           'postAll' => $method == "POST" ? $postAll : [],
-           'getUrl' => $status == 1 ? $get_url : [],
-        );
-       
-        return json_encode($return);
-        
-    } //! Url Arama Son
-
-    public static function run() 
-    {
-        require 'router.php'; //! Router
-        require 'app/error/index.php'; //! Error
-        require 'controllers/index.php'; //! controllers
-        
-        $request_uri = self::parse_url(); //! Url
-        //echo "request_uri:"; echo $request_uri; die();
-
-        $searchForUrl = self::searchForUrl($routes,$request_uri); //! Url Arama
-        $searchForUrl_Json = json_decode($searchForUrl); //! Json
-        $status = $searchForUrl_Json->status; //! Status
-        //echo "<pre>"; print_r($searchForUrl_Json); die();
-        //echo "status:"; echo $status; die();
-         
-
-        if($status == 1) { 
-
-            //! Veri Okuma
-            //echo "<pre>";
-            //print_r($routes);
-            //print_r($routes[$searchForUrl_Json->index]); //! Array Okuma
-            //echo $routes[$findindex]["controller"]; //! test
-            //die();
-
-           
-            $id = $searchForUrl_Json->id;
-            $method = $routes[$id]["method"]; //! Method Type
-            $controller = $routes[$id]["controller"]; //! Controller Function
-            $postAll = $searchForUrl_Json->postAll ? $searchForUrl_Json->postAll : [] ; //! Post 
-            $getUrl = $searchForUrl_Json->getUrl; //! Get Url Paramatre 
-           
-            //echo "<pre>";
-            //print_r($searchForUrl_Json); die();
-            //print_r($postAll); die();
-            //echo "name:"; echo $postAll->name; die();
-           
-            //echo "method:"; echo $method; echo "<br>";
-            //echo "controller:"; echo $controller;
-
-            //! Return
-            $return = array(
-                'id' => $status == 1 ? $id : null,
-                'url' => $request_uri,
-                'method' => $method,                
-                'controller' => $controller,                
-                //'searchForUrl_Json' => $searchForUrl_Json,                
-                'postAll' => $method == "POST" ? $postAll : [],
-                'getUrl' => $status == 1 ? $getUrl : [],
-            );
-            
-            //print_r($return); die();
-
-            //! Controller Yönlendirme
-            if($method == "GET") {  Controller::$controller($getUrl);  }
-            if($method == "POST") {  Controller::$controller($postAll);  }
-
-            
-
         }
-        else { errors::notFound(); } //! Sayfa bulunamdı. 404
-        
-     
-       
+
+        return [
+            'id' => null,
+            'url' => $currentPath,
+            'method' => $method,
+            'status' => 0,
+            'postAll' => [],
+            'getUrl' => []
+        ];
+    }
+
+    // Router çalıştır
+    public static function run()
+    {
+        require 'router.php';
+        require 'app/error/index.php';
+
+        $uri = self::parse_url();
+        $result = self::searchForUrl($routes, $uri);
+
+        //echo "uri: "; echo $uri; die();
+        //echo "<pre>"; print_r($result); die();
+
+        if ($result['status'] == 1) {
+            $route = $routes[$result['id']];
+
+            //echo "<pre>";  print_r($route); die();
+
+            $controllerName = $route['controller'];
+            $methodName = $route['controller_method'] ?? 'index';
+
+            $controllerFile = 'controllers/' . $controllerName . '.php';
+
+            if (file_exists($controllerFile)) {
+                require_once $controllerFile;
+
+                if (class_exists($controllerName)) {
+                    $controller = new $controllerName();
+
+                    if (method_exists($controller, $methodName)) {
+                        $params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                        call_user_func([$controller, $methodName], $params);
+                    } else { errors::notFound("Metot bulunamadı",$methodName); die();  }
+                } elseif (function_exists($controllerName)) {
+                    // Eğer bu bir fonksiyonsa (sınıf değil)
+                    $params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                    call_user_func($controllerName, $params);
+                } else { errors::notFound("Controller bulunamadı",$controllerName); die();  }
+            } else { errors::notFound("Controller dosyası yok",$controllerFile); die(); }
+        } else {  errors::notFound("Route bulunamadı",$uri); die();  }
     }
 }
-
-
-    

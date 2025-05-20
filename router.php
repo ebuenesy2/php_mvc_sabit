@@ -5,53 +5,88 @@
         array(
             "path" => '/',
             'method' =>'GET',
-            'controller' =>'home',            
+            'controller' =>'HomeController',            
+            'controller_method' =>'home',            
         ),
         array(
             "path" => '/',
             'method' =>'POST',
-            'controller' =>'home_Post',            
+            'controller' =>'HomeController',  
+            'controller_method' =>'home_Post',            
         ),
         array(
             "path" => '/test',
             'method' =>'GET',
-            'controller' =>'test_Get',            
+            'controller' =>'HomeController',  
+            'controller_method' =>'test_Get',            
         ),
         array(
             "path" => '/test/:id',
             'method' =>'GET',
-            'controller' =>'test_Get_Url',            
+            'controller' =>'HomeController',  
+            'controller_method' =>'test_Get_Url',            
         ),
         array(
             "path" => '/test/:id/name/:name',
             'method' =>'GET',
-            'controller' =>'test_Get_Url_Name',            
+            'controller' =>'HomeController',  
+            'controller_method' =>'test_Get_Url_Name',            
         ),
        array(
             "path" => '/params',
             'method' =>'GET',
-            'controller' => 'test_Get_params',
+            'controller' =>'HomeController',  
+            'controller_method' => 'test_Get_params',
         ),
         array(
             "path" => '/headers',
             'method' =>'GET',
-            'controller' => 'Get_headers',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Get_headers',
         ),
         array(
             "path" => '/bearer_token',
             'method' =>'GET',
-            'controller' => 'Get_headers_Authorization_BearerToken',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Get_headers_Authorization_BearerToken',
         ),        
         array(
             "path" => '/bearer_token',
             'method' =>'POST',
-            'controller' => 'POST_headers_Authorization_BearerToken',
+            'controller' =>'HomeController',  
+            'controller_method' => 'POST_headers_Authorization_BearerToken',
         ),
         
         array(
             "path" => '/info',
             'method' =>'GET',
-            'controller' => 'Get_Info',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Get_Info',
+        ), 
+
+
+        //! Dosya İşlemleri
+        array(
+            "path" => '/file/get',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'home',
+        ), 
+
+
+        //! Mysql Api İşlemleri
+        array(
+            "path" => '/api/test',
+            'method' =>'GET',
+            'controller' =>'TestController',  
+            'controller_method' => 'home',
+        ), 
+
+        array(
+            "path" => '/api/test/all',
+            'method' =>'GET',
+            'controller' =>'TestController',  
+            'controller_method' => 'all',
         ), 
         
        
