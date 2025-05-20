@@ -3,7 +3,7 @@
 // Veritabanı Ayarları
 return [
     'host' => 'localhost',
-    'dbname' => 'mydb',
+    'dbname' => 'site_test',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8mb4'

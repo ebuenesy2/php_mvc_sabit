@@ -78,7 +78,7 @@
         array(
             "path" => '/api/test',
             'method' =>'GET',
-            'controller' =>'FileController',  
+            'controller' =>'TestController',  
             'controller_method' => 'home',
         ), 
 
