@@ -6,7 +6,9 @@ class TestController
 {
     public function home($req = [])
     {
-        echo "Mysql Anasayfa GET<br>";
+        $return = {
+            "title"
+        }
     }
 
     public function all($req = [])
@@ -21,8 +23,7 @@ class TestController
             //->offset($offset)
             ->get(true); // true = JSON olarak döner
 
-        print_r($test);
-        
+        print_r($test); die();
         
     }
 
