@@ -32,14 +32,18 @@ class TestController
         
         $page = isset($_GET["page"]) ? $_GET["page"] : 1; //! Sayfa Sayısı
         $rowcount = isset($_GET["rowcount"]) ? $_GET["rowcount"] : 1; //! Sayfa Başı Gösterecek Veri
-        $order = isset($_GET["order"]) ? $_GET["order"] : 1; //! Sayfa Sayısı
-        //echo "order:"; echo $order; die();
+        $order = isset($_GET["order"]) ? $_GET["order"] : 1; //! Sıralama [desc => Büyükten Küçüğe ] [asc => Küçükten Büyüğe ]
+        //echo "rowcount:"; echo $rowcount; die();
+        
 
         //! Veri Tabanı İşlemleri
-        $DB = DB::table(self::$tableName);
+        $DB = DB::table(self::$tableName); //! Tablo
         $DB_Count = $DB->count(); //! Sayısı
 
-        //$DB = l
+
+        $DB = $DB->orderBy('id', $order); //! Sıralama
+
+
 
         $DB_Get = $DB->get(); //! Veri Çekme
 
