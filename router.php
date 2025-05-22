@@ -146,13 +146,19 @@
             'controller' =>'TestController',  
             'controller_method' => 'edit',
         ),
-
         
         array(
             "path" => '/api/test/edit/delete',
             'method' =>'POST',
             'controller' =>'TestController',  
             'controller_method' => 'edit_delete',
+        ),
+
+        array(
+            "path" => '/api/test/control',
+            'method' =>'GET',
+            'controller' =>'TestController',  
+            'controller_method' => 'runTests',
         ),
         
        

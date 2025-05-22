@@ -299,14 +299,14 @@ class TestController
 
     public static function delete($req = null){
         //echo "Controller delete"; echo "<br>";
-        //echo "<pre>"; print_r($req);  // Tüm Veriler
+        //echo "<pre>"; print_r($req); die(); // Tüm Veriler
 
         //! Gelen Veriler
-        $postAll = $req['postAll'];
+        $postAll = $req['postAll'] ?? null;
         $getUrl = $req['getUrl'];
         //echo "<pre>"; print_r($getUrl);  // Tüm Get Veriler
 
-        $id = intval($getUrl['id']);
+        $id = intval($getUrl['idx']);
         //echo "id: " . $id;  // Tekil Veri
 
         //! Veri Tabanı İşlemleri - Sil
@@ -458,6 +458,156 @@ class TestController
         echo json_encode($return);
 
     }
-    
+
+    public static function runTests_Error($output = null){ 
+
+       
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            echo "<br>";
+            echo "JSON decode error: " . json_last_error_msg();
+            echo "<pre>"; print_r($output); echo "<br>";
+            die();
+        }
+    }
+
+    //! Test
+    public static function runTests() {
+        echo "Starting tests...\n";
+        
+        // Test home()
+        echo "Testing home()";
+        ob_start();
+        self::home();
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']) && $data['status'] === 1);
+        echo "- home() test passed \n";
+
+        // Test all()
+        echo "Testing all() with page=1, rowcount=2, order=asc ";
+        $_GET['page'] = 1;
+        $_GET['rowcount'] = 2;
+        $_GET['order'] = 'asc';
+        ob_start();
+        self::all();
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['DB']) && is_array($data['DB']));
+        echo "- all() test passed \n";
+
+        // Test find() with id=1
+        echo "Testing find() with id=1";
+        ob_start();
+        self::find(['getUrl' => ['id' => 1]]);
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']));
+        echo " - find() test passed \n";
+
+        // Test find_post() with id=1
+        echo "Testing find_post() with id=1";
+        ob_start();
+        self::find_post(['postAll' => ['id' => 1]]);
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']));
+        echo " - find_post() test passed \n";
+
+
+        // Test find_multi_post() with ids="1,2"\n
+        echo "Testing find_multi_post() with ids='1,2'";
+        ob_start();
+        self::find_multi_post(['postAll' => ['ids' => '1,2']]);
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']));
+        echo "- find_multi_post() test passed \n";
+
+
+        // Test find_user() with created_byId=1
+        echo "Testing find_user() with created_byId=1";
+        $_GET['page'] = 1;
+        $_GET['rowcount'] = 2;
+        $_GET['order'] = 'desc';
+        ob_start();
+        self::find_user(['postAll' => ['created_byId' => 1]]);
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']));
+        echo "- find_user() test passed \n";
+
+        // Test add()
+        echo "Testing add()";
+        $newData = ['name' => 'TestName', 'surname' => 'TestSurname', 'created_byId' => 1];
+        ob_start();
+        self::add(['postAll' => $newData]);
+        $output = ob_get_clean();
+        $data = json_decode($output, true);
+        assert(isset($data['status']));
+        echo " - add() test passed \n";
+
+        // Test edit() with id = insert_Id from add()
+        echo "Testing edit() with id=" . $data['insert_Id']; 
+        $editData = ['id' => $data['insert_Id'], 'name' => 'EditedName', 'surname' => 'EditedSurname', 'updated_byId' => 1];
+        ob_start();
+        self::edit(['postAll' => $editData]);
+        $outputEdit = ob_get_clean();
+        $dataEdit = json_decode($outputEdit, true);
+        assert(isset($dataEdit['status']));
+        echo " - edit() test passed \n";
+
+        // Test delete() with id = insert_Id from add()
+        echo "Testing delete() with id=" . $data['insert_Id']; 
+        ob_start();
+        self::delete(['getUrl' => ['id' => $data['insert_Id']]]);
+        $outputDelete = ob_get_clean();
+        $dataDelete = json_decode($outputDelete, true);
+        self::runTests_Error($outputDelete); 
+
+        assert(isset($dataDelete['status']));
+        echo " - delete() test passed \n";
+
+
+        die(); 
+
+        // Test delete() with id = insert_Id from add()
+        echo "Testing delete() with id=" . $data['insert_Id'] . "\n";
+        ob_start();
+        self::delete(['getUrl' => ['id' => $data['insert_Id']]]);
+        $outputDelete = ob_get_clean();
+        $dataDelete = json_decode($outputDelete, true);
+        assert(isset($dataDelete['status']));
+        echo "- delete() test passed"; echo "<br>";
+
+        // Test multi_delete() (you can uncomment and modify ids if you want)
+        /*
+        echo "Testing multi_delete()\n";
+        $idsToDelete = '3,4';
+        ob_start();
+        self::multi_delete(['postAll' => ['ids' => $idsToDelete]]);
+        $outputMultiDelete = ob_get_clean();
+        $dataMultiDelete = json_decode($outputMultiDelete, true);
+        assert(isset($dataMultiDelete['status']));
+        echo "- multi_delete() test passed"; echo "<br>";
+        */
+
+        // Test edit_delete() (soft delete) with example ids
+        /*
+        echo "Testing edit_delete()\n";
+        ob_start();
+        self::edit_delete(['postAll' => ['ids' => '5,6', 'deleted_byId' => 1]]);
+        $outputEditDelete = ob_get_clean();
+        $dataEditDelete = json_decode($outputEditDelete, true);
+        assert(isset($dataEditDelete['status']));
+        echo "- edit_delete() test passed"; echo "<br>";
+        */
+
+        echo "All tests completed.\n";
+
+
+    }
+
+        
 
 }
