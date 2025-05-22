@@ -15,24 +15,6 @@ class HomeController {
         echo "host:"; echo $host;
     }
 
-    public static function home_Post($req = null){
-        echo "Controller Home Post"; echo "<br>";
-
-        //! Post Okuma
-        //echo "<pre>"; print_r($req); // Tüm POST verileri
-        //echo "name: " . $req['name'];  // Tekil veri
-
-
-        //! Json
-        $postJson = json_encode($req); // JSON string
-        $data = json_decode($postJson); // Tekrar decode edip eriş sonra objesi oluşturuyor
-
-        //echo "<pre>"; print_r($data);         // tüm veri
-        //echo "name: "; echo $data->name ?? 'yok';           // eğer array içindeki object varsa
-        //echo $data[0]->id ?? 'yok';           // eğer array içindeki object varsa
-
-    }
-
     public static function test_Get($req = null){
         echo "Controller test_Get"; echo "<br>";
     }
@@ -43,24 +25,82 @@ class HomeController {
         
         //! Tüm veriler
         //echo "<pre>"; print_r($req); die();
-        echo "id: "; echo $req['id']; //! Tek Veri Okuma
+        $getUrl = $req['getUrl'];
+
+        echo "<pre>"; print_r($getUrl);  // Tüm Get Veriler
+        echo "id: "; echo $getUrl['id']; //! Tek Veri Okuma
 
     }
 
     public static function test_Get_Url_Name($req = null){
         echo "Controller test_Get_Url_Name"; echo "<br>";
 
-        echo "<pre>"; print_r($req); die();
-        //echo "id: "; echo $req['id']; //! Tek Veri Okuma
+        //! Tüm veriler
+        //echo "<pre>"; print_r($req); die();
+        $getUrl = $req['getUrl'];
+
+        echo "<pre>"; print_r($getUrl);  // Tüm Get Veriler
+        echo "id: "; echo $getUrl['id']; //! Tek Veri Okuma
+        echo "<br>";
+        echo "name: "; echo $getUrl['name']; //! Tek Veri Okuma
        
     }
 
     public static function test_Get_params($req = null) {
-        //! echo "Controller test_Get_params"; echo "<br>";
+        echo "Controller test_Get_params"; echo "<br>";
         
         //! Params Okuma
         echo "<pre>"; print_r($_GET); die(); //! Tüm Params
         echo "name:"; echo $_GET["name"]; die(); //! Tek Params Okuma
+    }
+
+    public static function home_Post($req = null){
+        echo "Controller Home Post"; echo "<br>";
+        //echo "<pre>"; print_r($req);  // Tüm Veriler
+
+        //! Post Okuma
+        $postAll = $req['postAll']; // Tüm POST Veriler
+        echo "<pre>"; print_r($postAll);  // Tüm Veriler
+
+        //echo "name: " . $postAll['name'];  // Tekil Veri
+
+        //! Json
+        $postJson = json_encode($postAll); // JSON string
+        $data = json_decode($postJson); // Tekrar decode edip eriş sonra objesi oluşturuyor
+
+        //echo "<pre>"; print_r($data);         // tüm veri
+        //echo "name: "; echo $data->name ?? 'yok';  // eğer array içindeki object varsa
+        //echo $data[0]->id ?? 'yok';           // eğer array içindeki object varsa
+
+    }
+    
+    public static function home_Post_Url($req = null){
+        echo "Controller Home Post"; echo "<br>";
+        //echo "<pre>"; print_r($req);  // Tüm Veriler
+
+        //! Post Okuma
+        $postAll = $req['postAll']; // Tüm POST Veriler
+        //echo "<pre>"; print_r($postAll);  // Tüm Veriler
+
+        //echo "name: " . $postAll['name'];  // Tekil Veri
+
+        //! Json
+        $postJson = json_encode($postAll); // JSON string
+        $data = json_decode($postJson); // Tekrar decode edip eriş sonra objesi oluşturuyor
+
+        //echo "<pre>"; print_r($data);         // tüm veri
+        //echo "name: "; echo $data->name ?? 'yok';  // eğer array içindeki object varsa
+        //echo $data[0]->id ?? 'yok';           // eğer array içindeki object varsa
+
+
+        //! Get Url
+        $getUrl = $req['getUrl']; // Tüm GET Veriler
+        //echo "<pre>"; print_r($getUrl);  // Tüm Veriler
+
+        echo "id: " . $getUrl['id'];  // Tekil Veri
+
+        //$id = intval($getUrl['id']);
+        //echo "id: " . $id;  // Tekil Veri
     }
 
     public static function Get_headers($req = null){
@@ -87,34 +127,6 @@ class HomeController {
         else { echo "token yok"; }
 
     }
-
-    public static function POST_headers_Authorization_BearerToken($req = null){
-        echo "Controller POST_headers_Authorization_BearerToken"; echo "<br>";  
-
-        //! Post Okuma
-        echo "<pre>"; print_r($req); // Tüm POST verileri
-        //echo "name: " . $req->name;  // Tekil veri
-
-        echo "<br>";  
-
-        //! Json
-        // $postJson = $req->name;
-        // echo "<pre>"; print_r($postJson); die(); //! Tüm Json Veriler
-        // //! echo "<pre>"; print_r($postJson[0]); die(); //! Json Veri
-        // //! echo "id:"; print_r($postJson[0]->id); die(); //! Tek Veri
-        //! Post Okuma -- Son
-
-        $headers = getallheaders(); //! Header
-        //echo "<pre>"; print_r($headers); die();
-
-        $headers_Authorization = $headers["Authorization"]; //! Bearer abcToken
-        $Authorization = explode("Bearer ",$headers_Authorization)[1]; //! abcToken
-        
-        if($Authorization == "abcToken") { echo "token var"; }
-        else { echo "token yok"; }
-
-    }
-    
     
     //! Proje Bilgileri    
     public static function Get_Info($req = null)

@@ -9,12 +9,6 @@
             'controller_method' =>'home',            
         ),
         array(
-            "path" => '/',
-            'method' =>'POST',
-            'controller' =>'HomeController',  
-            'controller_method' =>'home_Post',            
-        ),
-        array(
             "path" => '/test',
             'method' =>'GET',
             'controller' =>'HomeController',  
@@ -39,6 +33,18 @@
             'controller_method' => 'test_Get_params',
         ),
         array(
+            "path" => '/',
+            'method' =>'POST',
+            'controller' =>'HomeController',  
+            'controller_method' =>'home_Post',            
+        ),
+        array(
+            "path" => '/:id',
+            'method' =>'POST',
+            'controller' =>'HomeController',  
+            'controller_method' =>'home_Post_Url',            
+        ),
+        array(
             "path" => '/headers',
             'method' =>'GET',
             'controller' =>'HomeController',  
@@ -49,14 +55,10 @@
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'Get_headers_Authorization_BearerToken',
-        ),        
-        array(
-            "path" => '/bearer_token',
-            'method' =>'POST',
-            'controller' =>'HomeController',  
-            'controller_method' => 'POST_headers_Authorization_BearerToken',
-        ),
+        ),   
+       
         
+        //! Proje Bilgileri
         array(
             "path" => '/info',
             'method' =>'GET',
@@ -104,10 +106,59 @@
         ), 
 
         array(
+            "path" => '/api/test/find_multi_post',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'find_multi_post',
+        ), 
+        
+        array(
+            "path" => '/api/test/find_user',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'find_user',
+        ), 
+
+        array(
             "path" => '/api/test/add',
             'method' =>'POST',
             'controller' =>'TestController',  
             'controller_method' => 'add',
+        ),
+
+        array(
+            "path" => '/api/test/delete/:id',
+            'method' =>'POST',
+            'controller' =>'TestController', 
+            'controller_method' => 'delete',
+        ), 
+
+        array(
+            "path" => '/api/test/multi/delete',
+            'method' =>'POST',
+            'controller' =>'TestController', 
+            'controller_method' => 'multi_delete',
+        ), 
+
+        array(
+            "path" => '/api/test/edit',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'edit',
+        ),
+        
+        array(
+            "path" => '/api/test/edit/delete',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'edit_delete',
+        ),
+
+        array(
+            "path" => '/api/test/control',
+            'method' =>'GET',
+            'controller' =>'TestController',  
+            'controller_method' => 'runTests',
         ),
         
        
