@@ -90,12 +90,14 @@ class Route
                     $controller = new $controllerName();
 
                     if (method_exists($controller, $methodName)) {
-                        $params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                        //$params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                        $params = $result;
                         call_user_func([$controller, $methodName], $params);
                     } else { errors::notFound("Metot bulunamadı",$methodName); die();  }
                 } elseif (function_exists($controllerName)) {
                     // Eğer bu bir fonksiyonsa (sınıf değil)
-                    $params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                    //$params = $route['method'] == 'POST' ? $result['postAll'] : $result['getUrl'];
+                    $params = $result;
                     call_user_func($controllerName, $params);
                 } else { errors::notFound("Controller bulunamadı",$controllerName); die();  }
             } else { errors::notFound("Controller dosyası yok",$controllerFile); die(); }
