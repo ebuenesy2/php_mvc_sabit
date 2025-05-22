@@ -88,6 +88,27 @@
             'controller' =>'TestController',  
             'controller_method' => 'all',
         ), 
+
+        array(
+            "path" => '/api/test/find/:id',
+            'method' =>'GET',
+            'controller' =>'TestController', 
+            'controller_method' => 'find',
+        ), 
+
+        array(
+            "path" => '/api/test/find_post',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'find_post',
+        ), 
+
+        array(
+            "path" => '/api/test/add',
+            'method' =>'POST',
+            'controller' =>'TestController',  
+            'controller_method' => 'add',
+        ),
         
        
        
