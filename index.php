@@ -12,6 +12,9 @@
    require 'helpers/url.php'; //! Helper - View
    require 'helpers/views.php'; //! Helper - View
    require 'app/router/index.php'; //! Router
+
+   path_control();
+
    Route::run(); //! Router Run
 
 

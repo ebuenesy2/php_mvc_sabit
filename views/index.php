@@ -6,3 +6,6 @@
     <input type="text" name="surname" placeholder="soyadiniz yaziniz">
     <button type="submit">Gönder</button>
 </form>
+
+
+<img src="<?= base_url('public/img/resim1.jpg') ?>" alt="Logo">
