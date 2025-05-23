@@ -133,10 +133,23 @@ class HomeController {
     public static function GET_View($req = null){
         //echo "Controller GET_View"; echo "<br>"; 
 
-        $base_url = Config::get('app', 'base_url');
-        echo "base_url:"; echo $base_url;  die();
 
-        require  require $base_url.'/views/index.php';
+        //! Array
+        $DB_Data = [
+            [ 'id' => 1, 'name' => 'ahmet' ],
+            [ 'id' => 2, 'name' => 'mehmet' ]
+        ];
+        //echo "<pre>"; print_r($DB_Data); die();
+
+
+        //! Return
+        $veri = [
+            'name' => 'Ali',
+            'yas' => 30,
+            'users' => $DB_Data,
+        ];
+
+        view('index',$veri); //! Sayfa Görüntüleme
 
     }
     

@@ -8,7 +8,8 @@
    //echo "timezone:"; echo $timezone;  die();
    date_default_timezone_set($timezone);
 
-   
+
+   require 'helpers/views.php'; //! Helper - View
    require 'app/router/index.php'; //! Router
    Route::run(); //! Router Run
 
