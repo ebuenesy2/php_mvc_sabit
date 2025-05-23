@@ -33,13 +33,13 @@
             'controller_method' => 'test_Get_params',
         ),
         array(
-            "path" => '/',
+            "path" => '/home',
             'method' =>'POST',
             'controller' =>'HomeController',  
             'controller_method' =>'home_Post',            
         ),
         array(
-            "path" => '/:id',
+            "path" => '/home/:id',
             'method' =>'POST',
             'controller' =>'HomeController',  
             'controller_method' =>'home_Post_Url',            
@@ -55,7 +55,22 @@
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'Get_headers_Authorization_BearerToken',
-        ),   
+        ), 
+
+        //! View
+        array(
+            "path" => '/view',
+            'method' =>'GET',
+            'controller' =>'HomeController',  
+            'controller_method' => 'GET_View',
+        ),  
+
+        array(
+            "path" => '/form-gonder',
+            'method' =>'POST',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Post_Form_Gonder',
+        ),  
        
         
         //! Proje Bilgileri

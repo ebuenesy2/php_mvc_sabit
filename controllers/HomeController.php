@@ -128,6 +128,30 @@ class HomeController {
 
     }
     
+    
+    //! View
+    public static function GET_View($req = null){
+        //echo "Controller GET_View"; echo "<br>"; 
+        
+
+        view('index'); //! Sayfa Görüntüleme
+
+    }
+
+    
+    public static function Post_Form_Gonder($req = null){
+        echo "Controller Post_Form_Gonder"; echo "<br>";
+        //echo "<pre>"; print_r($req); die();  // Tüm Veriler
+
+        //! Post Okuma
+        $postAll = $req['postAll']; // Tüm POST Veriler
+        // echo "<pre>"; print_r($postAll); die(); // Tüm Veriler
+         
+        echo "name: " . $postAll['name'];  // Tekil Veri
+        
+    }
+    
+
     //! Proje Bilgileri    
     public static function Get_Info($req = null)
     {
