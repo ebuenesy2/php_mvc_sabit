@@ -1,5 +1,1 @@
-<?php
-
-echo "view";
-
-?>
+<h1>Hoş Geldiniz!</h1>

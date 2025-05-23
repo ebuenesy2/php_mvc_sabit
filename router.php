@@ -55,7 +55,15 @@
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'Get_headers_Authorization_BearerToken',
-        ),   
+        ), 
+
+        //
+        array(
+            "path" => '/view',
+            'method' =>'GET',
+            'controller' =>'HomeController',  
+            'controller_method' => 'GET_View',
+        ),  
        
         
         //! Proje Bilgileri

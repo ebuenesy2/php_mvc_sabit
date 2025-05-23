@@ -128,6 +128,19 @@ class HomeController {
 
     }
     
+    
+    //! View
+    public static function GET_View($req = null){
+        //echo "Controller GET_View"; echo "<br>"; 
+
+        $base_url = Config::get('app', 'base_url');
+        echo "base_url:"; echo $base_url;  die();
+
+        require  require $base_url.'/views/index.php';
+
+    }
+    
+
     //! Proje Bilgileri    
     public static function Get_Info($req = null)
     {

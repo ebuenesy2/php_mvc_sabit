@@ -9,7 +9,7 @@ return [
     'last_updated'  => '2025-05-18',
 
     // Uygulama Ayarları
-    'base_url'      => 'http://localhost/php_mvc_sabit',
+    'base_url'      => 'http://localhost/dashboard/github/php_mvc_sabit',
     'debug'         => true,
     'timezone'      => 'Europe/Istanbul',
     'locale'        => 'tr_TR',
