@@ -1,8 +1,8 @@
-<h2>AJAX ile Dosya Yükleme</h2>
+<h2>AJAX ile Çoklu Dosya Yükleme</h2>
 
-<form id="uploadForm">
-    <input type="file" name="dosya" required>
-    <input type="text" name="aciklama" placeholder="Dosya açıklaması">
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="dosyalar[]" multiple required>
+    <input type="text" name="aciklama" placeholder="Açıklama giriniz">
     <button type="submit">Yükle</button>
 </form>
 
@@ -10,7 +10,7 @@
 
 <script>
 document.getElementById('uploadForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Formun normal gönderimini engelle
+    e.preventDefault();
 
     const formData = new FormData(this);
 
@@ -18,14 +18,21 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
         method: "POST",
         body: formData
     })
-    .then(response => response.json()) // JSON dönerse
+    .then(response => response.json())
     .then(data => {
         console.log(data);
-        document.getElementById("sonuc").innerHTML = `
-            <p><strong>Durum:</strong> ${data.status ? 'Başarılı' : 'Hata'}</p>
-            <p><strong>Mesaj:</strong> ${data.msg}</p>
-            ${data.fileInfo ? `<p><strong>Dosya:</strong> ${data.fileInfo.name}</p>` : ''}
-        `;
+        let html = `<p><strong>Durum:</strong> ${data.status ? 'Başarılı' : 'Hata'}</p>`;
+        html += `<p><strong>Mesaj:</strong> ${data.msg}</p>`;
+
+        if (data.fileInfo && Array.isArray(data.fileInfo)) {
+            html += "<ul>";
+            data.fileInfo.forEach(file => {
+                html += `<li>${file.name} (${file.size} byte)</li>`;
+            });
+            html += "</ul>";
+        }
+
+        document.getElementById("sonuc").innerHTML = html;
     })
     .catch(error => {
         console.error("Hata oluştu:", error);

@@ -168,25 +168,17 @@ class HomeController {
     
     //! Dosya Yükleme
     public static function Post_File_Upload($req = null){
-        //echo "Controller Post_File_Upload"; echo "<br>";
-        //echo "<pre>"; print_r($req); die();  // Tüm Veriler
+        header('Content-Type: application/json');
 
-        //! Post Okuma
-        $postAll = $req['postAll']; // Tüm POST Veriler
-        //echo "<pre>"; print_r($postAll); die(); // Tüm Veriler
+        $result = FileHelper::uploadMultipleFiles('dosyalar');
+        $postAll = $_POST ?? [];
 
-
-        // Yardımcı fonksiyonu çağır
-        $resultFileUpload = FileHelper::uploadFile('dosya');
-        //echo "<pre>"; print_r($resultFileUpload); die(); // Tüm Veriler
-
-        //! Return
         echo json_encode([
-            'title' => 'Dosya Yükleme',
-            'status' => $resultFileUpload['status'],
-            'msg' => $resultFileUpload['msg'],
+            'title' => 'Çoklu Dosya Yükleme',
+            'status' => $result['status'],
+            'msg' => $result['msg'],
             'post' => $postAll,
-            'fileInfo' => $resultFileUpload['fileInfo'],
+            'fileInfo' => $result['fileInfo'],
         ]);
         
     }
