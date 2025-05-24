@@ -131,25 +131,9 @@ class HomeController {
     
     //! View
     public static function GET_View($req = null){
-        //echo "Controller GET_View"; echo "<br>"; 
+        //echo "Controller GET_View"; echo "<br>";
         
-        //! Array
-        $DB_Data = [
-            [ 'id' => 1, 'name' => 'ahmet' ],
-            [ 'id' => 2, 'name' => 'mehmet' ]
-        ];
-        //echo "<pre>"; print_r($DB_Data); die();
-
-
-        //! Return
-        $veri = [
-            'name' => 'Ali',
-            'yas' => 30,
-            'users' => $DB_Data,
-        ];
-
-        view('index',$veri); //! Sayfa Görüntüleme
-
+        view('index'); //! Sayfa Görüntüleme
 
     }
     //! View Son
@@ -167,6 +151,18 @@ class HomeController {
         
     }
     //! View -den verileri Alma - Son
+
+
+        
+    //! View - About
+    public static function GET_View_About($req = null){
+        echo "Controller GET_View_About"; echo "<br>"; 
+
+        
+        view('/web/about'); //! Sayfa Görüntüleme
+
+    }
+    //! View  - About -  Son
     
 
     //! Proje Bilgileri    
