@@ -59,18 +59,35 @@
 
         //! View
         array(
-            "path" => '/view',
+            "path" => '/web',
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'GET_View',
         ),  
-
+          
         array(
             "path" => '/form-gonder',
             'method' =>'POST',
             'controller' =>'HomeController',  
             'controller_method' => 'Post_Form_Gonder',
-        ),  
+        ),
+        
+        //! View - About
+        array(
+            "path" => '/web/about',
+            'method' =>'GET',
+            'controller' =>'HomeController',  
+            'controller_method' => 'GET_View_About',
+        ), 
+
+
+        //! Dosya yükleme
+        array(
+            "path" => '/dosya-yukle',
+            'method' => 'POST',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Post_File_Upload',
+        ), 
        
         
         //! Proje Bilgileri

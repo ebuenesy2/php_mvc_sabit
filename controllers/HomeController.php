@@ -1,5 +1,7 @@
 <?php
 
+require_once 'helpers/file_helper.php'; // Dosya
+
 class HomeController {
     
     
@@ -131,14 +133,14 @@ class HomeController {
     
     //! View
     public static function GET_View($req = null){
-        //echo "Controller GET_View"; echo "<br>"; 
+        //echo "Controller GET_View"; echo "<br>";
         
-
         view('index'); //! Sayfa Görüntüleme
 
     }
+    //! View Son
 
-    
+    //! View -den verileri Alma
     public static function Post_Form_Gonder($req = null){
         echo "Controller Post_Form_Gonder"; echo "<br>";
         //echo "<pre>"; print_r($req); die();  // Tüm Veriler
@@ -150,6 +152,37 @@ class HomeController {
         echo "name: " . $postAll['name'];  // Tekil Veri
         
     }
+    //! View -den verileri Alma - Son
+        
+    //! View - About
+    public static function GET_View_About($req = null){
+        echo "Controller GET_View_About"; echo "<br>"; 
+
+        
+        view('/web/about'); //! Sayfa Görüntüleme
+
+    }
+    //! View  - About -  Son
+
+
+    
+    //! Dosya Yükleme
+    public static function Post_File_Upload($req = null){
+        header('Content-Type: application/json');
+
+        $result = FileHelper::uploadMultipleFiles('dosyalar');
+        $postAll = $_POST ?? [];
+
+        echo json_encode([
+            'title' => 'Çoklu Dosya Yükleme',
+            'status' => $result['status'],
+            'msg' => $result['msg'],
+            'post' => $postAll,
+            'fileInfo' => $result['fileInfo'],
+        ]);
+        
+    }
+    //! Dosya Yükleme -- Son
     
 
     //! Proje Bilgileri    

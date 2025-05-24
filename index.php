@@ -13,9 +13,7 @@
    require 'helpers/views.php'; //! Helper - View
    require 'app/router/index.php'; //! Router
 
-   path_control();
-
+   path_control(); // İlk olarak dosya kontrolü yapsın
    Route::run(); //! Router Run
-
 
 ?>
