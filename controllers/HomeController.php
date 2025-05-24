@@ -151,8 +151,6 @@ class HomeController {
         
     }
     //! View -den verileri Alma - Son
-
-
         
     //! View - About
     public static function GET_View_About($req = null){
@@ -163,6 +161,52 @@ class HomeController {
 
     }
     //! View  - About -  Son
+
+
+    
+    //! Dosya Yükleme
+    public static function Post_File_Upload($req = null){
+        //echo "Controller Post_File_Upload"; echo "<br>";
+        //echo "<pre>"; print_r($req); die();  // Tüm Veriler
+
+        //! Post Okuma
+        $postAll = $req['postAll']; // Tüm POST Veriler
+        //echo "<pre>"; print_r($postAll); die(); // Tüm Veriler
+        
+        //! Tanım
+        $upload_status = 0; //! Yükleme Durumu
+        $upload_mesaj = ""; //! Yükleme Mesaj
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['dosya'])) {
+
+            $dosya = $_FILES['dosya'];
+            $dosyaAdi = basename($dosya['name']);
+            $hedefKlasor = 'public/uploads/';
+            $hedefYol = $hedefKlasor . $dosyaAdi;
+            
+
+            // Yükleme kontrolü
+            if (move_uploaded_file($dosya['tmp_name'], $hedefYol)) { $upload_status = 1; } 
+            else { $upload_status = 0; } 
+       
+            //! Return
+            $return = array(
+                'title'=> 'Dosya Yukleme',
+                'status' => $upload_status,
+                'msg' => 'xx',
+                'post' => $postAll,
+                'fileInfo' => $dosya,
+            );
+            
+            //echo json_encode($return); //! Json
+            echo "<pre>"; print_r($return); die(); // Return
+
+        } else {
+            echo "Geçersiz istek.";
+        }
+        
+    }
+    //! Dosya Yükleme -- Son
     
 
     //! Proje Bilgileri    

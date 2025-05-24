@@ -78,7 +78,16 @@
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'GET_View_About',
-        ),  
+        ), 
+
+
+        //! Dosya yükleme
+        array(
+            "path" => '/dosya-yukle',
+            'method' => 'POST',
+            'controller' =>'HomeController',  
+            'controller_method' => 'Post_File_Upload',
+        ), 
        
         
         //! Proje Bilgileri
