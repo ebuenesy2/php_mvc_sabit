@@ -1,11 +1,27 @@
-<h1>Hoş Geldiniz!  - Index</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoş Geldiniz</title>
+    <link rel="stylesheet" href="<?= base_url('public/css/index.css') ?>">
+</head>
+<body>
 
-<h2>Veri Gönder</h2>
-<form action="<?= base_url('form-gonder') ?>" method="POST">
-    <input type="text" name="name" placeholder="adinizi yaziniz">
-    <input type="text" name="surname" placeholder="soyadiniz yaziniz">
-    <button type="submit">Gönder</button>
-</form>
+    <h1>Hoş Geldiniz!  - Index</h1>
+
+   <div class="container">
+
+        <h1>Merhaba, <?= $name ?>!</h1>
+
+        <ul>
+            <?php foreach ($users as $user): ?>
+                <li><?= $user['id'] ?> - <?= $user['name'] ?></li>
+            <?php endforeach; ?>
+        </ul>
+
+        
+    </div>
 
 
-<img src="<?= base_url('public/img/resim1.jpg') ?>" alt="Logo">
+</body>
+</html>

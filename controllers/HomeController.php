@@ -133,12 +133,28 @@ class HomeController {
     public static function GET_View($req = null){
         //echo "Controller GET_View"; echo "<br>"; 
         
+        //! Array
+        $DB_Data = [
+            [ 'id' => 1, 'name' => 'ahmet' ],
+            [ 'id' => 2, 'name' => 'mehmet' ]
+        ];
+        //echo "<pre>"; print_r($DB_Data); die();
 
-        view('index'); //! Sayfa Görüntüleme
+
+        //! Return
+        $veri = [
+            'name' => 'Ali',
+            'yas' => 30,
+            'users' => $DB_Data,
+        ];
+
+        view('index',$veri); //! Sayfa Görüntüleme
+
 
     }
+    //! View Son
 
-    
+    //! View -den verileri Alma
     public static function Post_Form_Gonder($req = null){
         echo "Controller Post_Form_Gonder"; echo "<br>";
         //echo "<pre>"; print_r($req); die();  // Tüm Veriler
@@ -150,6 +166,7 @@ class HomeController {
         echo "name: " . $postAll['name'];  // Tekil Veri
         
     }
+    //! View -den verileri Alma - Son
     
 
     //! Proje Bilgileri    
