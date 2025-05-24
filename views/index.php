@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Örnek Sayfa</title>
-    <link rel="stylesheet" href="<?= base_url('public/css/index.css') ?>">
+  
+
+    <!----- Css ------> 
+    <link rel="stylesheet" type="text/css" href="<?= base_url('public/css/index.css') ?>">
+
 </head>
 <body>
 
@@ -11,6 +15,8 @@
         <h1>Merhaba Dünya!</h1>
         <p>Bu bir örnek stil sayfasıdır.</p>
     </div>
+
+    <img src="<?= base_url('public/img/resim1.jpg') ?>" alt="img1_test" width="200px" height="150px">
 
 </body>
 </html>
