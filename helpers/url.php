@@ -2,48 +2,36 @@
 
 //! Proje Url Uzantısı
 function base_url($path = '') {
-    return rtrim(Config::get('app', 'base_url'), '/') . '/' . ltrim($path, '/');
+    $base = Config::get('app', 'base_url'); // örn: http://localhost/dashboard/github/php_mvc_sabit
+    return rtrim($base, '/') . '/' . ltrim($path, '/');
 }
 
 
 //! Dosya Kontrolü ve Gösterimi
 function path_control() {
-    // URL'den gelen istek path'ini al
     $requestPath = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-    //echo "requestPath:"; echo $requestPath; die();
 
-    // Uygulamanın kök fiziksel public dizin yolu
+    // "public" klasörünün fiziksel yolunu al
     $publicPath = realpath(__DIR__ . '/../public');
     if (!$publicPath) return;
-    //echo "publicPath:"; echo $publicPath; die();  
 
-
-    // Uygulamanın base URL'ini al (örn: /dashboard/github/php_mvc_sabit/)
-    $baseUrl = rtrim(parse_url(Config::get('app', 'base_url'), PHP_URL_PATH), '/');
-    //echo "baseUrl:"; echo $baseUrl; die();
-
-    // Public klasörün URL içindeki tam konumu
-    $publicUrlPart = $baseUrl . '/public';
-    //echo "publicUrlPart: "; echo $publicUrlPart; die();
-
-    // Eğer gelen istek public diziniyle başlamıyorsa, yönlendirme router'a kalsın
-    if (strpos($requestPath, $publicUrlPart) !== 0) { return; }
-
-    // Public dizin sonrası yolu bul
-    $relativePath = ltrim(substr($requestPath, strlen($publicUrlPart)), '/');
-    //echo "relativePath:"; echo $relativePath; die();
-
-    // Fiziksel tam dosya yolunu oluştur
-    $fullPath = realpath($publicPath . '/' . $relativePath);
-
-    // Dosya güvenlik kontrolü ve sunumu
-    if (!$fullPath || strpos($fullPath, $publicPath) !== 0 || !is_file($fullPath)) {
-        return; // dosya yok veya erişilemezse devam et
+    // Request path içinde "public/"'ten sonraki kısmı ayıkla
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME']); // örn: /dashboard/github/php_mvc_sabit
+    $publicUrlPrefix = $scriptDir . '/public/';
+    
+    if (!str_starts_with($requestPath, $publicUrlPrefix)) {
+        return; // Public dizini değilse devam et
     }
 
-    $mime = mime_content_type($fullPath);
-    header("Content-Type: $mime");
-    header("Content-Length: " . filesize($fullPath));
-    readfile($fullPath);
-    exit;
+    $relativePath = substr($requestPath, strlen($publicUrlPrefix));
+    $fullPath = realpath($publicPath . '/' . $relativePath);
+
+    // Dosya varsa ve erişilebilirse gönder
+    if ($fullPath && is_file($fullPath) && str_starts_with($fullPath, $publicPath)) {
+        header('Content-Type: ' . mime_content_type($fullPath));
+        header('Content-Length: ' . filesize($fullPath));
+        readfile($fullPath);
+        exit;
+    }
 }
+
