@@ -1,22 +1,37 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Örnek Sayfa</title>
-  
+<h2>Veri Gönder (AJAX)</h2>
+<form id="myForm">
+    <input type="text" name="name" placeholder="adinizi yaziniz" required>
+    <input type="text" name="surname" placeholder="soyadiniz yaziniz" required>
+    <button type="submit">Gönder</button>
+</form>
 
-    <!----- Css ------> 
-    <link rel="stylesheet" type="text/css" href="<?= base_url('public/css/index.css') ?>">
+<div id="response"></div>
 
-</head>
-<body>
+<script>
+document.getElementById('myForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Formun normal submitini engelle
 
-    <div class="container">
-        <h1>Merhaba Dünya!</h1>
-        <p>Bu bir örnek stil sayfasıdır.</p>
-    </div>
+    const form = e.target;
+    const formData = new FormData(form);
 
-    <img src="<?= base_url('public/img/resim1.jpg') ?>" alt="img1_test" width="200px" height="150px">
+    // FormData'yı JSON formatına çevir
+    let object = {};
+    formData.forEach((value, key) => object[key] = value);
+    const json = JSON.stringify(object);
 
-</body>
-</html>
+    fetch('<?= base_url('form-gonder') ?>', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  // JSON olarak gönderiyoruz
+        },
+        body: json
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('response').innerHTML = data;
+    })
+    .catch(error => {
+        document.getElementById('response').innerHTML = "Hata: " + error;
+    });
+});
+</script>
