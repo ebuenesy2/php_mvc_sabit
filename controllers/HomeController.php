@@ -15,16 +15,18 @@ class HomeController {
 
         $host = Config::get('db', 'host');
         echo "host:"; echo $host;
+
     }
 
     public static function test_Get($req = null){
         echo "Controller test_Get"; echo "<br>";
+
+    
     }
 
     public static function test_Get_Url($req = null){
         echo "Controller test_Get_Url"; echo "<br>";echo "<br>";
 
-        
         //! Tüm veriler
         //echo "<pre>"; print_r($req); die();
         $getUrl = $req['getUrl'];
