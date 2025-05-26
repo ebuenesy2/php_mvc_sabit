@@ -74,7 +74,7 @@
         
         //! View - About
         array(
-            "path" => '/web/about',
+            "path" => '/about',
             'method' =>'GET',
             'controller' =>'HomeController',  
             'controller_method' => 'GET_View_About',
@@ -88,6 +88,20 @@
             'controller_method' => 'Get_Info',
         ), 
 
+
+        //! *************** Admin  ******************************
+
+        //! Admin Anasayfa
+        array(
+            "path" => '/admin',
+            'method' =>'GET',
+            'controller' =>'AdminController',            
+            'controller_method' =>'home',            
+        ),
+
+        //! *************** Admin - Son  ******************************
+
+       
         
         //! *************** Api Servis İşlemleri  ******************************
         
@@ -233,8 +247,7 @@
         //! *************** Dosya İşlemleri - Son *************************
 
 
-        
-        
+            
        
        
     ];

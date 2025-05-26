@@ -6,6 +6,13 @@ class HomeController {
     public static function home($req = null){
         echo "Controller Home"; echo "<br>";
 
+        view('web/index'); //! Sayfa Görüntüleme
+
+    }
+
+    public static function test_Get($req = null){
+        echo "Controller test_Get"; echo "<br>";
+
         $base_url = Config::get('app', 'base_url');
         echo "base_url:"; echo $base_url; 
 
@@ -13,11 +20,6 @@ class HomeController {
 
         $host = Config::get('db', 'host');
         echo "host:"; echo $host;
-
-    }
-
-    public static function test_Get($req = null){
-        echo "Controller test_Get"; echo "<br>";
 
     
     }
@@ -128,19 +130,14 @@ class HomeController {
         if($Authorization == "abcToken") { echo "token var"; }
         else { echo "token yok"; }
 
-    }
-    
+    }    
     
     //! View
     public static function GET_View($req = null){
         //echo "Controller GET_View"; echo "<br>";
 
         
-       errors::errorAccountSuspended(); die();
-        
-        view('index'); //! Sayfa Görüntüleme
-        //view('web/index'); //! Sayfa Görüntüleme
-        
+        view('00_sabit/00_sabit_sayfa'); //! Sayfa Görüntüleme
 
     }
     //! View Son
