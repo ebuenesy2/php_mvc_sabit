@@ -79,16 +79,6 @@
             'controller' =>'HomeController',  
             'controller_method' => 'GET_View_About',
         ), 
-
-
-        //! Dosya yükleme
-        array(
-            "path" => '/dosya-yukle',
-            'method' => 'POST',
-            'controller' =>'HomeController',  
-            'controller_method' => 'Post_File_Upload',
-        ), 
-       
         
         //! Proje Bilgileri
         array(
@@ -98,17 +88,9 @@
             'controller_method' => 'Get_Info',
         ), 
 
-
-        //! Dosya İşlemleri
-        array(
-            "path" => '/file/get',
-            'method' =>'GET',
-            'controller' =>'FileController',  
-            'controller_method' => 'home',
-        ), 
-
-
-        //! Mysql Api İşlemleri
+        
+        //! *************** Mysql Api İşlemleri  ******************************
+        
         array(
             "path" => '/api/test',
             'method' =>'GET',
@@ -192,6 +174,66 @@
             'controller' =>'TestController',  
             'controller_method' => 'runTests',
         ),
+
+        //! *************** Mysql Api İşlemleri - Son *************************
+
+
+        //! *************** Dosya İşlemleri *************************
+
+        //! Dosya Anasayfa
+        array(
+            "path" => '/file/home',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'home',
+        ), 
+
+
+        //! Dosya Yükleme - Sayfa
+        array(
+            "path" => '/file/upload',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'fileUploadView',
+        ), 
+
+        //! Dosya Yükleme - Post
+        array(
+            "path" => '/file-upload-post',
+            'method' => 'POST',
+            'controller' =>'FileController',  
+            'controller_method' => 'Post_File_Upload',
+        ), 
+
+
+        //! Dosya Yükleme - Sayfa - Ajax
+        array(
+            "path" => '/file/upload/ajax',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'fileUploadViewAjax',
+        ), 
+
+        //! Çoklu Dosya Yükleme - Sayfa - Ajax 
+        array(
+            "path" => '/file/upload/multi/ajax',
+            'method' =>'GET',
+            'controller' =>'FileController',  
+            'controller_method' => 'fileUploadViewMultiAjax',
+        ), 
+
+        //! Çoklu Dosya Yükleme - Post
+        array(
+            "path" => '/file-multi-upload-post',
+            'method' => 'POST',
+            'controller' =>'FileController',  
+            'controller_method' => 'Post_File_MultiUpload',
+        ), 
+
+        //! *************** Dosya İşlemleri - Son *************************
+
+
+        
         
        
        

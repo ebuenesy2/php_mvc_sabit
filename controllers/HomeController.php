@@ -1,7 +1,5 @@
 <?php
 
-require_once 'helpers/file_helper.php'; // Dosya
-
 class HomeController {
     
     
@@ -165,27 +163,6 @@ class HomeController {
 
     }
     //! View  - About -  Son
-
-
-    
-    //! Dosya Yükleme
-    public static function Post_File_Upload($req = null){
-        header('Content-Type: application/json');
-
-        $result = FileHelper::uploadMultipleFiles('dosyalar');
-        $postAll = $_POST ?? [];
-
-        echo json_encode([
-            'title' => 'Çoklu Dosya Yükleme',
-            'status' => $result['status'],
-            'msg' => $result['msg'],
-            'post' => $postAll,
-            'fileInfo' => $result['fileInfo'],
-        ]);
-        
-    }
-    //! Dosya Yükleme -- Son
-    
 
     //! Proje Bilgileri    
     public static function Get_Info($req = null)

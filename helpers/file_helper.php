@@ -1,6 +1,6 @@
 <?php
 class FileHelper {
-    public static function uploadFile($fileKey = 'dosya', $hedefKlasor = 'public/uploads/', $izinliUzantilar = ['jpg', 'png', 'pdf']) {
+    public static function uploadFile($fileKey = 'dosya', $targetFolder = 'public/uploads/', $allowedExtensions = ['jpg', 'png', 'pdf']) {
         $upload_status = 0;
         $upload_mesaj = '';
         $file_info = null;
@@ -14,31 +14,44 @@ class FileHelper {
         }
 
         $dosya = $_FILES[$fileKey];
-        $uzanti = strtolower(pathinfo($dosya['name'], PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($dosya['name'], PATHINFO_EXTENSION));
 
-        if (!in_array($uzanti, $izinliUzantilar)) {
+        if (!in_array($extension, $allowedExtensions)) {
             return [
                 'status' => 0,
-                'msg' => 'İzin verilmeyen dosya türü: ' . $uzanti,
+                'msg' => 'İzin verilmeyen dosya türü: ' . $extension,
                 'fileInfo' => $dosya
             ];
         }
 
         // Benzersiz dosya adı üret
-        $yeniDosyaAdi = uniqid('dosya_', true) . '.' . $uzanti;
-        $hedefYol = $hedefKlasor . $yeniDosyaAdi;
+        $newFileName = uniqid('dosya_', true) . '.' . $extension;
+        $pathUrl = $targetFolder . $newFileName;
+
+        //! Site Url
+        $base_url = Config::get('app', 'base_url');
+        //echo "base_url:"; echo $base_url; 
 
         //! Klasor Yoksa Oluşturma
-        if (!is_dir($hedefKlasor)) { mkdir($hedefKlasor, 0755, true); }
+        if (!is_dir($targetFolder)) { mkdir($targetFolder, 0755, true); }
 
-        if (move_uploaded_file($dosya['tmp_name'], $hedefYol)) {
+        //! Dosya Yükleme
+        if (move_uploaded_file($dosya['tmp_name'], $pathUrl)) {
             $upload_status = 1;
-            $upload_mesaj = 'Dosya yüklendi: ' . $yeniDosyaAdi;
-            $dosya['yeni_ad'] = $yeniDosyaAdi;
-            $dosya['yol'] = $hedefYol;
-        } else {
-            $upload_mesaj = 'Dosya yüklenemedi.';
-        }
+            $upload_mesaj = 'Dosya yüklendi: ' . $newFileName;
+            $dosya['new_name'] = $newFileName;
+            $dosya['pathUrl'] = $pathUrl; //! Dosya Kayıt Yeri
+            $dosya['fileUrl'] = $base_url."/".$pathUrl; //! Dosya Yeri
+            
+            
+            //! Dosya Boyutu
+            $sizeKB= $dosya['size']/1024;
+            $dosya['sizeKB'] = number_format($sizeKB, 2); //! Boyut
+            
+           
+            
+        } else { $upload_mesaj = 'Dosya yüklenemedi.'; }
+        //! Dosya Yükleme -- Son
 
         return [
             'status' => $upload_status,
@@ -49,10 +62,14 @@ class FileHelper {
 
 
     //! ÇoklU Dosya Yükleme
-    public static function uploadMultipleFiles($fileKey = 'dosyalar', $hedefKlasor = 'public/uploads/', $izinliUzantilar = ['jpg', 'png', 'pdf']) {
+    public static function uploadMultipleFiles($fileKey = 'dosyalar', $targetFolder = 'public/uploads/', $allowedExtensions = ['jpg', 'png', 'pdf']) {
         $upload_status = 1; // tüm dosyalar başarılıysa 1
         $upload_mesaj = '';
         $dosyalar = [];
+
+        //! Site Url
+        $base_url = Config::get('app', 'base_url');
+        //echo "base_url:"; echo $base_url; 
 
         if (!isset($_FILES[$fileKey])) {
             return [
@@ -64,8 +81,8 @@ class FileHelper {
 
         $fileCount = count($_FILES[$fileKey]['name']);
 
-        if (!is_dir($hedefKlasor)) {
-            mkdir($hedefKlasor, 0755, true);
+        if (!is_dir($targetFolder)) {
+            mkdir($targetFolder, 0755, true);
         }
 
         for ($i = 0; $i < $fileCount; $i++) {
@@ -77,22 +94,29 @@ class FileHelper {
                 'size' => $_FILES[$fileKey]['size'][$i],
             ];
 
-            $uzanti = strtolower(pathinfo($dosya['name'], PATHINFO_EXTENSION));
+            $extension = strtolower(pathinfo($dosya['name'], PATHINFO_EXTENSION));
 
-            if (!in_array($uzanti, $izinliUzantilar)) {
+            if (!in_array($extension, $allowedExtensions)) {
                 $upload_status = 0;
-                $dosya['upload_msg'] = "İzin verilmeyen uzantı: $uzanti";
+                $dosya['upload_msg'] = "İzin verilmeyen uzantı: $extension";
                 $dosyalar[] = $dosya;
                 continue;
             }
 
-            $yeniDosyaAdi = uniqid('dosya_', true) . '.' . $uzanti;
-            $hedefYol = $hedefKlasor . $yeniDosyaAdi;
+            $newFileName = uniqid('dosya_', true) . '.' . $extension;
+            $pathUrl = $targetFolder . $newFileName;
 
-            if (move_uploaded_file($dosya['tmp_name'], $hedefYol)) {
+            if (move_uploaded_file($dosya['tmp_name'], $pathUrl)) {
                 $dosya['upload_msg'] = "Yüklendi";
-                $dosya['yeni_ad'] = $yeniDosyaAdi;
-                $dosya['yol'] = $hedefYol;
+                $dosya['new_name'] = $newFileName;
+                $dosya['pathUrl'] = $pathUrl; //! Dosya Kayıt Yeri
+                $dosya['fileUrl'] = $base_url."/".$pathUrl; //! Dosya Yeri
+                
+                
+                //! Dosya Boyutu
+                $sizeKB= $dosya['size']/1024;
+                $dosya['sizeKB'] = number_format($sizeKB, 2); //! Boyut
+
             } else {
                 $upload_status = 0;
                 $dosya['upload_msg'] = "Yüklenemedi";
