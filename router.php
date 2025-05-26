@@ -99,6 +99,46 @@
             'controller_method' =>'home',            
         ),
 
+        //! Admin Test
+        array(
+            "path" => '/admin/test',
+            'method' =>'GET',
+            'controller' =>'AdminController',            
+            'controller_method' =>'test',            
+        ),
+        
+        //! Admin Test View
+        array(
+            "path" => '/admin/test/view',
+            'method' =>'GET',
+            'controller' =>'AdminController',            
+            'controller_method' =>'test_view',            
+        ),
+
+        //! Admin Login
+        array(
+            "path" => '/admin/login',
+            'method' =>'GET',
+            'controller' =>'AdminController',            
+            'controller_method' =>'login',            
+        ),
+                  
+        array(
+            "path" => '/admin/login/control',
+            'method' =>'POST',
+            'controller' =>'AdminController',  
+            'controller_method' => 'login_Post',
+        ),
+
+        
+        //! Admin Register
+        array(
+            "path" => '/admin/register',
+            'method' =>'GET',
+            'controller' =>'AdminController',            
+            'controller_method' =>'register',            
+        ),
+
         //! *************** Admin - Son  ******************************
 
        
