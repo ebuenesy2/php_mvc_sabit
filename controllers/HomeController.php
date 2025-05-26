@@ -134,9 +134,13 @@ class HomeController {
     //! View
     public static function GET_View($req = null){
         //echo "Controller GET_View"; echo "<br>";
+
         
-        //view('index'); //! Sayfa Görüntüleme
-        view('web/index'); //! Sayfa Görüntüleme
+       errors::errorAccountSuspended(); die();
+        
+        view('index'); //! Sayfa Görüntüleme
+        //view('web/index'); //! Sayfa Görüntüleme
+        
 
     }
     //! View Son

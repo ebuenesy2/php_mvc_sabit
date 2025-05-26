@@ -32,7 +32,7 @@ class DB {
                 self::$conn = new PDO($dsn, self::$userName, self::$pass);
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
-                errors::index("Veritabanı bağlantı hatası", $e->getMessage()); die();
+                errors::error500("Veritabanı bağlantı hatası", $e->getMessage()); die();
             }
         }
         return self::$conn;
