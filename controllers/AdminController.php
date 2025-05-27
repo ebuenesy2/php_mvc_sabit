@@ -43,9 +43,10 @@ class AdminController {
         
         // Kullanıcıyı veritabanında ara
         $user = DB::table('users')->where('email', '=', $email)->first();
-        echo "<pre>"; print_r($user); die();
+        //echo "<pre>"; print_r($user); die();
 
-      
+        //header("Location: ./test"); exit;
+        
 
     }
 
