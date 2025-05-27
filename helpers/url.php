@@ -7,6 +7,19 @@ function base_url($path = '') {
 }
 
 
+function redirect($url = '/') {
+
+    $base_url = Config::get('app', 'base_url');
+    //echo "base_url:"; echo $base_url; die();
+
+    $LocationUrl = $base_url.$url;
+    //echo "LocationUrl:"; echo $LocationUrl; die();
+      
+    header("Location:".$LocationUrl);
+    
+}
+
+
 //! Dosya Kontrolü ve Gösterimi
 function path_control() {
     $requestPath = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);

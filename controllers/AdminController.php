@@ -24,8 +24,8 @@ class AdminController {
     
     public static function login($req = null){
         //echo "Controller Admin Login"; echo "<br>";
-
         view('admin/login'); //! Sayfa Görüntüleme
+        
     }
 
     
@@ -44,9 +44,14 @@ class AdminController {
         // Kullanıcıyı veritabanında ara
         $user = DB::table('users')->where('email', '=', $email)->first();
         //echo "<pre>"; print_r($user); die();
+         
 
-        //header("Location: ./test"); exit;
-        
+        $_SESSION['status'] = [
+            'type'      => "error",
+            'msg'      => "Geçersiz Giriş",
+        ];
+
+        redirect('/admin/login');
 
     }
 
